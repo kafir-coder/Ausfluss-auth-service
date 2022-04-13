@@ -12,6 +12,7 @@ jobs:
       - name: install packages
         run: npm install
   lint:
+    needs: install_packages
     runs-on: ubuntu-20.04
     steps:
       - name: format
@@ -19,6 +20,7 @@ jobs:
       - name: lint with eslint
         run: npm run lint
   tests:
+    needs: lint
     runs-on: ubuntu-20.04
     steps:
       - name: unit and integration tests
@@ -26,6 +28,7 @@ jobs:
       - name: integration test
         run: npm run test:e2e
   build: 
+    needs: tests
     runs-on: ubuntu-20.04
     steps:
       - name: prebuild

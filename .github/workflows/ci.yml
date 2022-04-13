@@ -7,7 +7,16 @@ on:
       - "develop"
 
 jobs:
+<<<<<<< HEAD
   lint-build-test: 
+=======
+  checkout_repo:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2.1.0
+  install_packages:
+    needs: checkout_repo
+>>>>>>> c44feafaf724552b0365045924a8932fc490d9ab
     runs-on: ubuntu-20.04
     steps:
       - name: checkout repository

@@ -11,6 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2.1.0
   install_packages:
+    needs: checkout_repo
     runs-on: ubuntu-20.04
     steps:
       - name: install packages

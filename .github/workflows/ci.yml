@@ -1,0 +1,33 @@
+name: continuous integration pipeline
+on: 
+  push:
+    branches:
+      - "develop"
+
+jobs:
+  install_packages:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: install packages
+        run: npm install
+  lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: format
+        run: npm run format
+      - name: lint with eslint
+        run: npm run lint
+  tests:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: unit and integration tests
+        run: npm run test
+      - name: integration test
+        run: npm run test:e2e
+  build: 
+    runs-on: ubuntu-20.04
+    steps:
+      - name: prebuild
+        run: npm run prebuild
+      - name: build 
+        run: npm run build

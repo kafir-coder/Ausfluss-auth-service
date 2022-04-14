@@ -8,6 +8,9 @@ import { Driver } from './drivers/entities/driver.entity';
 import { AuthModule } from './auth/auth.module';
 import { ProducersModule } from './producers/producers.module';
 import { Producer } from './producers/entities/producer.entity';
+import { VehiclesModule } from './vehicles/vehicles.module';
+import { Vehicle } from './vehicles/entities/vehicle.entity';
+import { Photo } from './vehicles/entities/photo.entity';
 
 @Module({
   imports: [
@@ -24,9 +27,10 @@ import { Producer } from './producers/entities/producer.entity';
       username: process.env.MYSQL_USER,
       password: process.env.MYSQL_PASSWORD,
       database: process.env.MYSQL_DATABASE,
-      entities: [Driver, Producer],
+      entities: [Driver, Producer, Vehicle, Photo],
       synchronize: true,
     }),
+    VehiclesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

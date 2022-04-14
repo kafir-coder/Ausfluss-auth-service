@@ -10,12 +10,12 @@ export class AuthController {
   @UseGuards(DriverAuthGuard)
   @Post('/login-driver')
   async loginDriver(@Request() req) {
-    return this.authService.login(req.body, 'driver');
+    return this.authService.login(req.user, 'driver');
   }
 
   @UseGuards(ProducerAuthGuard)
   @Post('/login-producer')
   async loginProducer(@Request() req) {
-    return this.authService.login(req.body, 'producer');
+    return this.authService.login(req.user, 'producer');
   }
 }

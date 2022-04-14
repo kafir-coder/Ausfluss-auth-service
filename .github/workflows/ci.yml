@@ -24,10 +24,6 @@ jobs:
         run: npm run format
       - name: lint with eslint
         run: npm run lint
-      - name: unit and integration tests
-        run: npm run test
-      - name: integration test
-        run: npm run test:e2e
       - name: prebuild
         run: npm run prebuild
       - name: build 

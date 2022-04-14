@@ -6,10 +6,13 @@ import { AppService } from './app.service';
 import { DriversModule } from './drivers/drivers.module';
 import { Driver } from './drivers/entities/driver.entity';
 import { AuthModule } from './auth/auth.module';
+import { ProducersModule } from './producers/producers.module';
+import { Producer } from './producers/entities/producer.entity';
 
 @Module({
   imports: [
     DriversModule,
+    ProducersModule,
     AuthModule,
     ConfigModule.forRoot({
       envFilePath: 'development.env',
@@ -21,7 +24,7 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.MYSQL_USER,
       password: process.env.MYSQL_PASSWORD,
       database: process.env.MYSQL_DATABASE,
-      entities: [Driver],
+      entities: [Driver, Producer],
       synchronize: true,
     }),
   ],

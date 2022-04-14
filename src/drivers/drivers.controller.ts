@@ -9,22 +9,27 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
+import { ProducersService } from 'src/producers/producers.service';
 import { DriversService } from './drivers.service';
 import { CreateDriverDto } from './dto/create-driver.dto';
 import { UpdateDriverDto } from './dto/update-driver.dto';
-import { DriverAlreadyExistsError } from './errors';
+import { AccountAlreadyExistsError } from '../errors';
 
 @Controller('/api/v1/drivers')
 export class DriversController {
-  constructor(private readonly driversService: DriversService) {}
+  constructor(
+    private readonly driversService: DriversService,
+    private readonly producersService: ProducersService,
+  ) {}
 
   @Post()
   async create(@Body() createDriverDto: CreateDriverDto) {
     const { email } = createDriverDto;
-    const exists = await this.driversService.existsByEmail(email);
-    if (exists) {
+    const existsInDriver = await this.driversService.existsByEmail(email);
+    const existsInProducer = await this.producersService.existByEmail(email);
+    if (existsInDriver || existsInProducer) {
       throw new HttpException(
-        new DriverAlreadyExistsError(),
+        new AccountAlreadyExistsError(),
         HttpStatus.BAD_REQUEST,
       );
     }

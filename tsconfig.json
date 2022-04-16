@@ -1,21 +1,50 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es2017",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+   "compilerOptions": {
+      "outDir": "./build",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "sourceMap": true,
+      "moduleResolution": "node",
+      "module": "es6",
+      "target": "es6",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "isolatedModules": true,
+      "noEmit": true,
+      "strict": true,
+      "lib": [
+         "es2020"
+      ],
+      "strictPropertyInitialization": false
+   },
+   "ts-node": {
+      "compilerOptions": {
+        "module": "CommonJS"
+      }
+    }
 }
+
+
+
+/*
+
+{
+   "compilerOptions": {
+     "module": "es6",
+     "esModuleInterop": true,
+     "moduleResolution": "node",
+     "removeComments": true,
+     "emitDecoratorMetadata": true,
+     "experimentalDecorators": true,
+     "allowSyntheticDefaultImports": true,
+     "target": "es2017",
+     "sourceMap": false,
+     "outDir": "./build",
+     "baseUrl": "./",
+     "noImplicitAny": false,
+     "strictBindCallApply": false,
+     "forceConsistentCasingInFileNames": false,
+     "noFallthroughCasesInSwitch": false
+   }
+ }
+ */

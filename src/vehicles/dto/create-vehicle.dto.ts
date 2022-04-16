@@ -6,11 +6,14 @@ export class CreateVehicleDto {
 
   @IsNotEmpty()
   @IsNumber()
-  max_weight_capacity: string;
+  max_weight_limit: string;
 
   @IsNotEmpty()
   status: string;
 
   @IsNotEmpty()
-  document_photo: string;
+  plate: string;
+
+  @IsNotEmpty()
+  document: string;
 }

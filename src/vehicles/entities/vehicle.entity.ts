@@ -1,7 +1,14 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Photo } from './photo.entity';
+import { Driver } from '../../drivers/entities/driver.entity';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
 
 @Entity()
+@Unique(['plate'])
 export class Vehicle {
   @PrimaryGeneratedColumn()
   id: number;
@@ -10,11 +17,17 @@ export class Vehicle {
   brand: string;
 
   @Column()
-  max_weight_capacity: string;
+  max_weight_limit: string;
 
   @Column()
   status: string;
 
+  @ManyToOne(() => Driver, (driver: Driver) => driver.id)
+  owner: number;
+
+  @Column({ unique: true })
+  plate: string;
+
   @Column()
-  document_photo: string;
+  document: string;
 }

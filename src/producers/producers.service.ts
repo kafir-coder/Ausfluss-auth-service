@@ -41,7 +41,7 @@ export class ProducersService {
   }
 
   async update(id: number, updateProducerDto: UpdateProducerDto) {
-    return await this.update(id, updateProducerDto);
+    return '';
   }
 
   async remove(id: number) {

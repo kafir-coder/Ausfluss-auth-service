@@ -11,7 +11,7 @@ export class Driver {
   @Column()
   password: string;
 
-  @Column({ default: true })
+  @Column()
   num_BI: string;
 
   @Column()
@@ -27,5 +27,5 @@ export class Driver {
   driver_type: string;
 
   @Column()
-  adress: string;
+  address: string;
 }

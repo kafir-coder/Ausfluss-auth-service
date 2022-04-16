@@ -3,8 +3,8 @@ import { ProducersService } from './producers.service';
 import { ProducersController } from './producers.controller';
 import { Producer } from './entities/producer.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DriversService } from 'src/drivers/drivers.service';
-import { Driver } from 'src/drivers/entities/driver.entity';
+import { DriversService } from '../drivers/drivers.service';
+import { Driver } from '../drivers/entities/driver.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Producer, Driver])],

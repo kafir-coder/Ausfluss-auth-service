@@ -9,7 +9,7 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { ProducersService } from 'src/producers/producers.service';
+import { ProducersService } from '../producers/producers.service';
 import { DriversService } from './drivers.service';
 import { CreateDriverDto } from './dto/create-driver.dto';
 import { UpdateDriverDto } from './dto/update-driver.dto';

@@ -12,8 +12,8 @@ import {
 import { ProducersService } from './producers.service';
 import { CreateProducerDto } from './dto/create-producer.dto';
 import { UpdateProducerDto } from './dto/update-producer.dto';
-import { DriversService } from 'src/drivers/drivers.service';
-import { AccountAlreadyExistsError } from 'src/errors';
+import { DriversService } from '../drivers/drivers.service';
+import { AccountAlreadyExistsError } from '../errors';
 
 @Controller('/api/v1/producers')
 export class ProducersController {

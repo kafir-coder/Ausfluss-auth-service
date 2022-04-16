@@ -14,7 +14,7 @@ import {
 import { VehiclesService } from './vehicles.service';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { addPhotoDto } from './dto/add-photo.dto';
 
 @Controller('/api/v1/vehicles')
@@ -23,21 +23,32 @@ export class VehiclesController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createVehicleDto: CreateVehicleDto, @Request() req) {
+  async create(
+    @Body() createVehicleDto: CreateVehicleDto,
+    @Request() req: any,
+  ) {
+    const plateExists = await this.vehiclesService.existsByPlate(
+      createVehicleDto.plate,
+    );
+    if (plateExists) {
+      throw new HttpException(
+        'A car with same plate already exists',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     if (req.user.type !== 'driver') {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    return this.vehiclesService.create(createVehicleDto);
+    return this.vehiclesService.create(createVehicleDto, req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post(':id/photos')
-  addPhotos(@Body() photos: addPhotoDto[], @Request() req) {
-    console.log(photos);
+  addPhotos(@Body() photos: addPhotoDto[], @Request() req: any) {
     if (req.user.type !== 'driver') {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    return this.vehiclesService.addPhotos(photos, req.params.id);
+    return this.vehiclesService.addPhotos(photos, parseInt(req.params.id));
   }
 
   @Get()

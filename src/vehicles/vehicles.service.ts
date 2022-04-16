@@ -15,15 +15,29 @@ export class VehiclesService {
     @InjectRepository(Photo)
     private photoRepository: Repository<Photo>,
   ) {}
-  async create(createVehicleDto: CreateVehicleDto) {
-    return await this.vehicleRepository.save(createVehicleDto);
+  async create(createVehicleDto: CreateVehicleDto, ownerId: number) {
+    const vehicle = await this.vehicleRepository.save({
+      ...createVehicleDto,
+      owner: ownerId,
+    });
+    return vehicle;
   }
 
   async addPhotos(photos: addPhotoDto[], vehicle_id: number) {
     photos.forEach((photo) => {
-      photo.vehicle_id = vehicle_id;
+      photo.vehicle = vehicle_id;
     });
+    console.log(photos);
     return await this.photoRepository.save(photos);
+  }
+
+  async existsByPlate(plate: string) {
+    const vehicle = await this.vehicleRepository.findAndCount({
+      where: {
+        plate,
+      },
+    });
+    return vehicle[1] > 0 ? true : false;
   }
   findAll() {
     return `This action returns all vehicles`;

@@ -6,8 +6,8 @@ export class Photo {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Vehicle, (vehicle) => vehicle.id)
-  vehicle_id: number;
+  @ManyToOne(() => Vehicle, (vehicle: Vehicle) => vehicle.id)
+  vehicle: number;
 
   @Column()
   photo_url: string;

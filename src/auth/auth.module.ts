@@ -2,13 +2,12 @@ import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { DriversModule } from '../drivers/drivers.module';
 import { PassportModule } from '@nestjs/passport';
-import { DriverLocalStrategy } from './driver/local.strategy';
 import { jwtConstants } from './constants';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { AuthController } from './auth.controller';
-import { ProducersModule } from 'src/producers/producers.module';
-import { ProducerLocalStrategy } from './producer/local.strategy';
+import { ProducersModule } from '../producers/producers.module';
+import { CustomStrategy } from './custom.strategy';
 
 @Module({
   imports: [
@@ -17,16 +16,11 @@ import { ProducerLocalStrategy } from './producer/local.strategy';
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '3600s' },
     }),
   ],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    DriverLocalStrategy,
-    ProducerLocalStrategy,
-    JwtStrategy,
-  ],
+  providers: [AuthService, CustomStrategy, JwtStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}

@@ -35,6 +35,12 @@ export class Driver1650060480769 implements MigrationInterface {
             isNullable: false,
           },
           {
+            name: 'score',
+            type: 'float',
+            isNullable: false,
+            default: 0,
+          },
+          {
             name: 'email',
             type: 'varchar',
             isNullable: false,

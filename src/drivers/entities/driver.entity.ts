@@ -18,6 +18,9 @@ export class Driver {
   phone: string;
 
   @Column()
+  score: number;
+
+  @Column()
   email: string;
 
   @Column()

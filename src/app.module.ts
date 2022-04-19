@@ -7,7 +7,9 @@ import { DriversModule } from './drivers/drivers.module';
 import { AuthModule } from './auth/auth.module';
 import { ProducersModule } from './producers/producers.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
+import { SolicitationModule } from './solicitation/solicitation.module';
 import ormconfig from '../ormconfig';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
@@ -19,6 +21,7 @@ import ormconfig from '../ormconfig';
     }),
     TypeOrmModule.forRoot(ormconfig),
     VehiclesModule,
+    SolicitationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

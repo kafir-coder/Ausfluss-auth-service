@@ -14,17 +14,22 @@ import { CreateProducerDto } from './dto/create-producer.dto';
 import { UpdateProducerDto } from './dto/update-producer.dto';
 import { DriversService } from '../drivers/drivers.service';
 import { AccountAlreadyExistsError } from '../errors';
+import { EncrypterService } from '../encrypter/encrypter.service';
 
 @Controller('/api/v1/producers')
 export class ProducersController {
   constructor(
     private readonly producersService: ProducersService,
     private readonly driverService: DriversService,
+    private readonly encrypter: EncrypterService,
   ) {}
 
   @Post()
   async create(@Body() createProducerDto: CreateProducerDto) {
-    const { email } = createProducerDto;
+    const { password, ...rest } = createProducerDto;
+    const hashedPassword = await this.encrypter.hash(password);
+    const producer_object = Object.assign(rest, { password: hashedPassword });
+    const { email } = producer_object;
 
     const existsInDriver = await this.driverService.existsByEmail(email);
     const existsInProducer = await this.producersService.existByEmail(email);
@@ -35,7 +40,7 @@ export class ProducersController {
       );
     }
 
-    return this.producersService.create(createProducerDto);
+    return this.producersService.create(producer_object);
   }
 
   @Get()

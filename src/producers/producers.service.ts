@@ -12,7 +12,10 @@ export class ProducersService {
     private producerRepository: Repository<Producer>,
   ) {}
   async create(createProducerDto: CreateProducerDto) {
-    return await this.producerRepository.save(createProducerDto);
+    const { password, ...producer } = await this.producerRepository.save(
+      createProducerDto,
+    );
+    return producer;
   }
 
   async findByEmail(email: string) {

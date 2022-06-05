@@ -14,17 +14,23 @@ import { DriversService } from './drivers.service';
 import { CreateDriverDto } from './dto/create-driver.dto';
 import { UpdateDriverDto } from './dto/update-driver.dto';
 import { AccountAlreadyExistsError } from '../errors';
+import { EncrypterService } from '../encrypter/encrypter.service';
 
 @Controller('/api/v1/drivers')
 export class DriversController {
   constructor(
     private readonly driversService: DriversService,
     private readonly producersService: ProducersService,
+    private readonly encrypter: EncrypterService,
   ) {}
 
   @Post()
   async create(@Body() createDriverDto: CreateDriverDto) {
-    const { email } = createDriverDto;
+    const { password, ...rest } = createDriverDto;
+    const hashedPassword = await this.encrypter.hash(password);
+    const driver_object = Object.assign(rest, { password: hashedPassword });
+
+    const { email } = driver_object;
     const existsInDriver = await this.driversService.existsByEmail(email);
     const existsInProducer = await this.producersService.existByEmail(email);
     if (existsInDriver || existsInProducer) {
@@ -33,7 +39,7 @@ export class DriversController {
         HttpStatus.BAD_REQUEST,
       );
     }
-    return await this.driversService.create(createDriverDto);
+    return await this.driversService.create(driver_object);
   }
 
   @Get()

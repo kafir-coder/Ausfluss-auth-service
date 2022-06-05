@@ -10,7 +10,6 @@ export class AuthController {
   @Post('/login')
   async loginProducer(@Request() req: any) {
     let type = null;
-
     if (req.user.driver_id) type = 'driver';
     else type = 'producer';
     return this.authService.login(req.user, type);

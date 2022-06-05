@@ -27,6 +27,4 @@ export class CreateDriverDto {
   @IsNotEmpty()
   driver_type: string;
 
-  @IsNotEmpty()
-  address: string;
 }

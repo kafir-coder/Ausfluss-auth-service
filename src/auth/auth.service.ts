@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ProducersService } from '../producers/producers.service';
 import { DriversService } from '../drivers/drivers.service';
+import { EncrypterService } from '../encrypter/encrypter.service';
 
 @Injectable()
 export class AuthService {
@@ -9,11 +10,21 @@ export class AuthService {
     private driverService: DriversService,
     private producerService: ProducersService,
     private jwtService: JwtService,
+    private readonly encrypter: EncrypterService,
   ) {}
 
   async validateDriver(email: string, pass: string): Promise<any> {
     const driver = await this.driverService.findByEmail(email);
-    if (driver && driver.password === pass) {
+
+    if (!driver) {
+      return null;
+    }
+    const hasSamePassword = await this.encrypter.authenticate(
+      driver.password,
+      pass,
+    );
+
+    if (hasSamePassword) {
       const { password, ...result } = driver;
       return result;
     }
@@ -22,7 +33,16 @@ export class AuthService {
 
   async validateProducer(email: string, pass: string): Promise<any> {
     const producer = await this.producerService.findByEmail(email);
-    if (producer && producer.password === pass) {
+
+    if (!producer) {
+      return null;
+    }
+    const hasSamePassword = await this.encrypter.authenticate(
+      producer.password,
+      pass,
+    );
+
+    if (hasSamePassword) {
       const { password, ...result } = producer;
       return result;
     }

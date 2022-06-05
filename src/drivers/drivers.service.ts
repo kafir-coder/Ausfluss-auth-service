@@ -12,7 +12,10 @@ export class DriversService {
     private driverRepository: Repository<Driver>,
   ) {}
   async create(createDriverDto: CreateDriverDto) {
-    return await this.driverRepository.save(createDriverDto);
+    const { password, ...driver } = await this.driverRepository.save(
+      createDriverDto,
+    );
+    return driver;
   }
 
   findAll() {

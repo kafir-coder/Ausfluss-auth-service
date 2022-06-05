@@ -8,3 +8,4 @@ async function bootstrap() {
   await app.listen(3000);
 }
 bootstrap();
+// sudo grep 'temporary password' /var/log/mysqld.log

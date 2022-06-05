@@ -9,13 +9,15 @@ import { ProducersModule } from './producers/producers.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { SolicitationModule } from './solicitation/solicitation.module';
 import ormconfig from '../ormconfig';
-import { BullModule } from '@nestjs/bull';
+// import { BullModule } from '@nestjs/bull';
+import { EncrypterModule } from './encrypter/encrypter.module';
 
 @Module({
   imports: [
     DriversModule,
     ProducersModule,
     AuthModule,
+    EncrypterModule,
     ConfigModule.forRoot({
       envFilePath: 'development.env',
     }),

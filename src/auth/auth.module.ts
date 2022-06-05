@@ -8,19 +8,21 @@ import { JwtStrategy } from './jwt.strategy';
 import { AuthController } from './auth.controller';
 import { ProducersModule } from '../producers/producers.module';
 import { CustomStrategy } from './custom.strategy';
+import { EncrypterService } from '../encrypter/encrypter.service';
 
 @Module({
   imports: [
     DriversModule,
     ProducersModule,
     PassportModule,
+
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '3600s' },
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, CustomStrategy, JwtStrategy],
+  providers: [AuthService, CustomStrategy, JwtStrategy, EncrypterService],
   exports: [AuthService],
 })
 export class AuthModule {}
